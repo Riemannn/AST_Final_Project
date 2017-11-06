@@ -1,0 +1,19 @@
+{
+  "name": "ast_final_project",
+  "version": "1.0.0",
+  "description": "ast final project",
+  "main": "src/app.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riemannn/AST_Final_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Riemannn/AST_Final_Project/issues"
+  },
+  "homepage": "https://github.com/Riemannn/AST_Final_Project#readme"
+}
