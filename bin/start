@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# node ./lib/main.js
+node_modules/.bin/coffee ./src/app/main.coffee

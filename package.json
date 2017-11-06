@@ -2,8 +2,9 @@
   "name": "ast_final_project",
   "version": "1.0.0",
   "description": "ast final project",
-  "main": "src/app.coffee",
+  "main": "src/app/main.coffee",
   "scripts": {
+    "start": "./bin/start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Riemannn/AST_Final_Project/issues"
   },
-  "homepage": "https://github.com/Riemannn/AST_Final_Project#readme"
+  "homepage": "https://github.com/Riemannn/AST_Final_Project#readme",
+  "dependencies": {
+    "coffee-script": "^1.12.7"
+  }
 }

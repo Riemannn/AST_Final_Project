@@ -1,3 +1,11 @@
+# Compiled files
+public/html/*.html
+public/css/*.css
+lib/**/*.js
+
+# Editor configuration
+.editorconfig
+
 # Logs
 logs
 *.log
@@ -56,4 +64,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
