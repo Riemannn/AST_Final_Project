@@ -17,6 +17,7 @@ module.exports =
   controllers:
     home: require './controllers/home'
     metrics: require './controllers/metrics'
+    user: require './controllers/user'
 
 
 
@@ -36,6 +37,9 @@ module.exports =
 
     # Metrics Controller
     this.getJson app, '/metrics.json', ctrls.metrics.index
+
+    # user controller
+    this.getJson app, '/openDB', ctrls.user.openDB
 
 
 
