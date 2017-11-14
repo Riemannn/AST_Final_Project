@@ -12,11 +12,9 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-server = require './server'
+env = require '../.env.coffee'
 
-# Instanciate a server
-server.create()
+level = require 'level'
+levelws = require 'level-ws'
 
-# Run the server
-server.run (message) ->
-  console.log message
+module.exports = levelws level env.DIR.ROOT + 'db/'

@@ -7,6 +7,6 @@ module.exports =
 
   DIR:
     ASSETS: 'resources/assets/'
-    ROOT: __dirname
+    ROOT: __dirname + '/'
     STATIC: 'public/'
     VIEWS: 'resources/templates/'

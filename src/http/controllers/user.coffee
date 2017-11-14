@@ -12,11 +12,15 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-server = require './server'
+model = require '../../models/user.coffee'
 
-# Instanciate a server
-server.create()
+module.exports =
+  index: (req, res) ->
+    model.get req.params.username, (err, data) ->
+      throw next err if err
+      res.status(200).json data
 
-# Run the server
-server.run (message) ->
-  console.log message
+  store: (req, res) ->
+    model.save req.body, (err) ->
+      throw next err if err
+      res.status(200).send 'User(s) saved.'
