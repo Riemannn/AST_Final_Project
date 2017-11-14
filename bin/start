@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # node ./lib/main.js
-node_modules/.bin/coffee ./src/main.coffee
+node_modules/.bin/nodemon --exec node_modules/.bin/coffee ./src/main.coffee

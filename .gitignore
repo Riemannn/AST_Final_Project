@@ -1,7 +1,11 @@
 # Compiled files
-public/html/*.html
-public/css/*.css
+public/html/**/*.html
+public/css/**/*.css
 lib/**/*.js
+
+# Database files
+db/*
+!db/.gitkeep
 
 # Editor configuration
 .editorconfig

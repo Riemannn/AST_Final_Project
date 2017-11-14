@@ -17,6 +17,7 @@ module.exports =
   controllers:
     home: require './controllers/home'
     metrics: require './controllers/metrics'
+    user: require './controllers/user'
 
 
 
@@ -35,7 +36,10 @@ module.exports =
     ctrls = this.controllers
 
     # Metrics Controller
-    this.getJson app, '/metrics.json', ctrls.metrics.index
+    this.getApi app, '/metrics.json', ctrls.metrics.index
+    # User Controller
+    this.getApi app, '/user/:username', ctrls.user.index
+    this.postApi app, '/user', ctrls.user.store
 
 
 
@@ -44,5 +48,9 @@ module.exports =
     app.get url, controllerFunc
 
   # Expose a GET API returning a JSON response
-  getJson: (app, url, controllerFunc) ->
+  getApi: (app, url, controllerFunc) ->
     app.get "/api#{url}", controllerFunc
+
+  # Expose a POST API
+  postApi: (app, url, controllerFunc) ->
+    app.post "/api#{url}", controllerFunc

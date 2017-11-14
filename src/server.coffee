@@ -12,10 +12,11 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-env = require '../../.env.coffee'
+env = require '../.env.coffee'
 
+bodyparser = require 'body-parser'
 express = require 'express'
-routes = require './routes'
+routes = require './http/routes'
 stylus = require 'stylus'
 
 module.exports =
@@ -30,6 +31,9 @@ module.exports =
 
     this.app.set 'view engine', 'pug'
     this.app.set 'views', "#{ env.DIR.ROOT }/#{ env.DIR.VIEWS }"
+
+    this.app.use bodyparser.json()
+    this.app.use bodyparser.urlencoded()
 
     this.app.use stylus.middleware
         src: "#{ env.DIR.ROOT }/#{ env.DIR.ASSETS }/styl/",
