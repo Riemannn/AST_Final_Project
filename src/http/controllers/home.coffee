@@ -20,3 +20,7 @@ module.exports =
   welcome: (req, res) ->
     res.render 'index',
       text: "Hello #{req.params.name}"
+
+  login: (req, res) ->
+    res.render 'login'
+    
