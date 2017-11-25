@@ -21,12 +21,36 @@ block styles
     link(rel='stylesheet', href='/css/login.css')
 
 block content
-    nav(class="navbar navbar-dark bg-dark")
-        div(class="container")
-            h1 SkiPerf
-            form(class="form-inline")
-                div.form-group
-                    input#email.form-control(name="email" placeholder="Email")
-                div.form-group.mx-sm-3
-                    input#password.form-control(name="inputPassword2" placeholder="Password")
-                button.btn.btn-outline-light(type="button") Sign in
+    div.all
+        nav(class="navbar navbar-dark bg-dark")
+            div(class="container")
+                div.row.justify-content-between
+                    h1.col-2 SkiPerf
+                    form.form-inline.col-7
+                        div.form-group
+                            input#email.form-control(name="email" placeholder="Email")
+                        div.form-group.mx-sm-3
+                            input#password.form-control(name="inputPassword2" placeholder="Password")
+                        button.btn.btn-outline-light(type="button") Log in
+                            
+        div.container.page
+            div.row.h-100
+                div.col-12.my-auto
+                    div.card.bg-light.card-block.mx-auto(style="max-width: 20rem;")
+                        div.card-header.text-center Sign in !
+                        div.card-body
+                            form
+                                div.form-group
+                                    label.col-form-label(for="firstname") Firstname
+                                    input#text.form-control(name="firstname")
+                                div.form-group
+                                    label.col-form-label(for="lastname") Lastname
+                                    input#text.form-control(name="lastname")
+                                div.form-group
+                                    label.col-form-label(for="email") Email address
+                                    input#text.form-control(name="email")
+                                div.form-group
+                                    label.col-form-label(for="pwd") Password
+                                    input#text.form-control(name="pwd")
+                                div.text-center
+                                    button#submit.btn.btn-dark Sign in
