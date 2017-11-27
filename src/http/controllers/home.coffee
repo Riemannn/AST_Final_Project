@@ -28,6 +28,5 @@ module.exports =
 
       if Object.keys(data).length == 0 || !(password == data[email].password)
         res.redirect "/login"
-
       else
         res.redirect "/"
