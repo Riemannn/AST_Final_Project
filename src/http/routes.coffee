@@ -27,6 +27,7 @@ module.exports =
 
     # Home Controller
     this.get app, '/', ctrls.home.index
+    this.get app, '/login', ctrls.home.login
 
 
 
