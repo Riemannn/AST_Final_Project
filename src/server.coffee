@@ -16,6 +16,7 @@ env = require '../.env.coffee'
 
 bodyparser = require 'body-parser'
 express = require 'express'
+morgan = require 'morgan'
 routes = require './http/routes'
 stylus = require 'stylus'
 
@@ -32,6 +33,7 @@ module.exports =
     this.app.set 'view engine', 'pug'
     this.app.set 'views', "#{ env.DIR.ROOT }/#{ env.DIR.VIEWS }"
 
+    this.app.use morgan 'dev'
     this.app.use bodyparser.json()
     this.app.use bodyparser.urlencoded({ extended: true })
 
