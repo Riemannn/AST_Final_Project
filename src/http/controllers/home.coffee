@@ -14,9 +14,4 @@
 
 module.exports =
   index: (req, res) ->
-    res.render 'index',
-      text: 'Hello World!'
-
-  welcome: (req, res) ->
-    res.render 'index',
-      text: "Hello #{req.params.name}"
+    res.render 'index'

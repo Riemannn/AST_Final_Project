@@ -33,15 +33,15 @@ module.exports =
     this.app.set 'views', "#{ env.DIR.ROOT }/#{ env.DIR.VIEWS }"
 
     this.app.use bodyparser.json()
-    this.app.use bodyparser.urlencoded()
+    this.app.use bodyparser.urlencoded({ extended: true })
 
     this.app.use stylus.middleware
-        src: "#{ env.DIR.ROOT }/#{ env.DIR.ASSETS }/styl/",
-        dest: "#{ env.DIR.ROOT }/#{ env.DIR.STATIC }/css/",
-        compile: (str, path) ->
-          stylus str
-          .set 'filename', path
-          .set 'compress', true
+      src: "#{ env.DIR.ROOT }/#{ env.DIR.ASSETS }/styl/",
+      dest: "#{ env.DIR.ROOT }/#{ env.DIR.STATIC }/css/",
+      compile: (str, path) ->
+        stylus str
+        .set 'filename', path
+        .set 'compress', true
 
     this.app.use '/', express.static "#{ env.DIR.ROOT }/#{ env.DIR.STATIC }"
 

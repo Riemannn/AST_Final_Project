@@ -15,23 +15,23 @@
 db = require '../db.coffee'
 
 module.exports =
-  get: (username, callback) ->
-    user = {}
+  all: (callback) ->
+    users = {}
     # Connect to db and open read stream
     rs = db.createReadStream
-      gte: "user:#{username}"
-      lte: "user:#{username}"
+      gte: 'user:!'
+      lte: 'user:~'
     # Handle events
     rs.on 'data', (data) ->
+      [ _, username ] = data.key.split ':'
       [ fullname, password, email ] = data.value.split ':'
-      user =
-        "#{username}":
-          fullname: fullname,
-          password: password,
-          email: email
+      users["#{username}"] =
+        fullname: fullname,
+        password: password,
+        email: email
     rs.on 'error', callback
     rs.on 'close', () ->
-      callback null, user
+      callback null, users
 
   save: (users, callback) ->
     # Connect to db and open write stream
@@ -52,3 +52,21 @@ module.exports =
 
     # Close stream
     ws.end()
+
+  get: (username, callback) ->
+    user = {}
+    # Connect to db and open read stream
+    rs = db.createReadStream
+      gte: "user:#{username}"
+      limit: 1
+    # Handle events
+    rs.on 'data', (data) ->
+      [ fullname, password, email ] = data.value.split ':'
+      user =
+        "#{username}":
+          fullname: fullname,
+          password: password,
+          email: email
+    rs.on 'error', callback
+    rs.on 'close', () ->
+      callback null, user

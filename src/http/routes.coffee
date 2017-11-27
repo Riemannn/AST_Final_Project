@@ -27,7 +27,6 @@ module.exports =
 
     # Home Controller
     this.get app, '/', ctrls.home.index
-    this.get app, '/hello/:name', ctrls.home.welcome
 
 
 
@@ -36,10 +35,12 @@ module.exports =
     ctrls = this.controllers
 
     # Metrics Controller
-    this.getApi app, '/metrics.json', ctrls.metrics.index
+    this.getApi app, '/metrics', ctrls.metrics.index
+    # this.postApi app, '/metrics', ctrls.metrics.store
     # User Controller
-    this.getApi app, '/user/:username', ctrls.user.index
-    this.postApi app, '/user', ctrls.user.store
+    this.getApi app, '/users', ctrls.user.index
+    this.postApi app, '/users', ctrls.user.store
+    this.getApi app, '/users/:username', ctrls.user.get
 
 
 
