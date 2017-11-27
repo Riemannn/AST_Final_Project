@@ -50,8 +50,8 @@ module.exports =
     ctrls = this.controllers
 
     # Metrics Controller
-    this.getApi app, '/metrics', ctrls.metrics.index
-    # this.postApi app, '/metrics', ctrls.metrics.store
+    this.getApi app, '/users/:id/metrics', ctrls.metrics.index
+    this.postApi app, '/users/:id/metrics', ctrls.metrics.store
     # User Controller
     this.getApi app, '/users', ctrls.user.index
     this.postApi app, '/users', ctrls.user.store

@@ -16,7 +16,8 @@ userModel = require '../../models/user.coffee'
 
 module.exports =
   login: (req, res) ->
-    res.render 'login'
+    res.render 'login',
+      retry: req.query.retry || false
 
   authenticate: (req, res) ->
     { email, password } = req.body
@@ -24,7 +25,7 @@ module.exports =
       throw next err if err
 
       if Object.keys(data).length == 0 || (password != data.password)
-        res.redirect '/login'
+        res.redirect '/login?retry=true'
       else
         req.session.loggedIn = true
         req.session.user = data

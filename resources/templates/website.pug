@@ -23,8 +23,7 @@ block styles
 block content
     nav.navbar.navbar-dark.bg-dark.navbar-expand-md
         div.container
-            a.navbar-brand(href="#")
-                h3 SkiPerf
+            a.navbar-brand(href="#") SkiPerf
             button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation")
                 span.navbar-toggler-icon
             div.collapse.navbar-collapse(id="navbarTogglerDemo03")
@@ -33,5 +32,7 @@ block content
                         a.nav-link(href="#") Home
                     li.nav-item
                         a.nav-link(href="#") Settings
-                    li.nav-item
-                        a.nav-link(href="#") Logout
+                    li.nav-item.mr-auto
+                        a.nav-link(href="/logout") Logout
+                        
+    h1 Hi #{name}

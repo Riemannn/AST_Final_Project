@@ -28,9 +28,9 @@ block content
                     h1 SkiPerf
                     form.form-inline(action="/login" method="post")
                         div.form-group
-                            input.form-control(type="email" name="email" placeholder="Email")
+                            input.form-control(type="email" name="email" placeholder="Email" class=retry ? 'is-invalid' : '')
                         div.form-group.mx-sm-3
-                            input.form-control(type="password" name="password" placeholder="Password")
+                            input.form-control(type="password" name="password" placeholder="Password" class=retry ? 'is-invalid' : '')
                         input.btn.btn-outline-light(type="submit" value="Log in")
                             
         div.container.page
