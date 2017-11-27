@@ -22,10 +22,10 @@ block styles
 
 block content
     div.all
-        nav(class="navbar navbar-dark bg-dark")
+        nav.navbar.navbar-dark.bg-dark
             div.container
                 div.row.justify-content-between
-                    h1 SkiPerf
+                    a.navbar-brand(href="#") SkiPerf
                     form.form-inline(action="/login" method="post")
                         div.form-group
                             input.form-control(type="email" name="email" placeholder="Email" class=retry ? 'is-invalid' : '')
