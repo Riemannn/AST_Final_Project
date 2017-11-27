@@ -12,10 +12,19 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+env = require '../../.env.coffee'
+
 module.exports =
   # If no user logged in, redirect to login page
   auth: (req, res, next) ->
     unless req.session.loggedIn
       res.redirect '/login'
+    else
+      next()
+
+  # Redirect HTTP requests to HTTPS
+  https: (req, res, next) ->
+    unless req.secure
+      res.redirect 'https://' + req.headers.host.replace(env.SERVER.HTTP_PORT, env.SERVER.HTTPS_PORT) + req.url
     else
       next()
