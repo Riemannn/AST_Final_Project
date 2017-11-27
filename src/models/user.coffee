@@ -58,7 +58,7 @@ module.exports =
     # Connect to db and open read stream
     rs = db.createReadStream
       gte: "user:#{username}"
-      limit: 1
+      lte: "user:#{username}"
     # Handle events
     rs.on 'data', (data) ->
       [ fullname, password, email ] = data.value.split ':'
