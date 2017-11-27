@@ -26,12 +26,12 @@ block content
             div.container
                 div.row.justify-content-between
                     h1 SkiPerf
-                    form.form-inline
+                    form.form-inline(action="/login" method="post")
                         div.form-group
-                            input#email.form-control(name="email" placeholder="Email")
+                            input.form-control(type="email" name="email" placeholder="Email")
                         div.form-group.mx-sm-3
-                            input#password.form-control(name="inputPassword2" placeholder="Password")
-                        button.btn.btn-outline-light(type="button") Log in
+                            input.form-control(type="password" name="password" placeholder="Password")
+                        input.btn.btn-outline-light(type="submit" value="Log in")
                             
         div.container.page
             div.row.h-100
@@ -42,15 +42,15 @@ block content
                             form
                                 div.form-group
                                     label.col-form-label(for="firstname") Firstname
-                                    input#text.form-control(name="firstname")
+                                    input.form-control(type="text" name="firstname")
                                 div.form-group
                                     label.col-form-label(for="lastname") Lastname
-                                    input#text.form-control(name="lastname")
+                                    input.form-control(type="text" name="lastname")
                                 div.form-group
                                     label.col-form-label(for="email") Email address
-                                    input#text.form-control(name="email")
+                                    input.form-control(type="email" name="email")
                                 div.form-group
                                     label.col-form-label(for="pwd") Password
-                                    input#text.form-control(name="pwd")
+                                    input.form-control(type="password" name="pwd")
                                 div.text-center
                                     button#submit.btn.btn-dark Sign in

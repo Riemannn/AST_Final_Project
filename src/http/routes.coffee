@@ -28,6 +28,7 @@ module.exports =
     # Home Controller
     this.get app, '/', ctrls.home.index
     this.get app, '/login', ctrls.home.login
+    this.post app, '/login', ctrls.home.connect
 
 
 
@@ -48,6 +49,10 @@ module.exports =
   # Expose a GET webpage
   get: (app, url, controllerFunc) ->
     app.get url, controllerFunc
+
+  # Expose a POST webpage
+  post: (app, url, controllerFunc) ->
+    app.post url, controllerFunc
 
   # Expose a GET API returning a JSON response
   getApi: (app, url, controllerFunc) ->
