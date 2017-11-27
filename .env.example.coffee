@@ -6,7 +6,8 @@ module.exports =
     PORT: 8080
 
   DIR:
-    ASSETS: 'resources/assets/'
+    ASSETS: __dirname + '/resources/assets/'
+    DB: __dirname + '/db/'
     ROOT: __dirname + '/'
-    STATIC: 'public/'
-    VIEWS: 'resources/templates/'
+    STATIC: __dirname + '/public/'
+    VIEWS: __dirname + '/resources/templates/'

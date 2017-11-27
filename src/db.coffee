@@ -17,4 +17,4 @@ env = require '../.env.coffee'
 level = require 'level'
 levelws = require 'level-ws'
 
-module.exports = levelws level env.DIR.ROOT + 'db/'
+module.exports = levelws level env.DIR.DB

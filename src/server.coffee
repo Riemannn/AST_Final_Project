@@ -18,6 +18,8 @@ bodyparser = require 'body-parser'
 express = require 'express'
 morgan = require 'morgan'
 routes = require './http/routes'
+session = require 'express-session'
+LevelStore = require('level-session-store')(session)
 stylus = require 'stylus'
 
 module.exports =
@@ -27,26 +29,36 @@ module.exports =
   create: (host, port) ->
     this.app = express()
 
+    # Set server's host & port
     this.app.set 'host', host || env.SERVER.HOST
     this.app.set 'port', port || env.SERVER.PORT || 8080
 
+    # Set views / templates settings
     this.app.set 'view engine', 'pug'
-    this.app.set 'views', "#{ env.DIR.ROOT }/#{ env.DIR.VIEWS }"
+    this.app.set 'views', "#{ env.DIR.VIEWS }"
 
+    # Define middlewares
     this.app.use morgan 'dev'
     this.app.use bodyparser.json()
     this.app.use bodyparser.urlencoded({ extended: true })
 
+    this.app.use session
+      secret: 'Alex&Marie'
+      store: new LevelStore env.DIR.DB + 'sessions/'
+      resave: true
+      saveUninitialized: true
+
     this.app.use stylus.middleware
-      src: "#{ env.DIR.ROOT }/#{ env.DIR.ASSETS }/styl/",
-      dest: "#{ env.DIR.ROOT }/#{ env.DIR.STATIC }/css/",
+      src: "#{ env.DIR.ASSETS }/styl/",
+      dest: "#{ env.DIR.STATIC }/css/",
       compile: (str, path) ->
         stylus str
         .set 'filename', path
         .set 'compress', true
 
-    this.app.use '/', express.static "#{ env.DIR.ROOT }/#{ env.DIR.STATIC }"
+    this.app.use '/', express.static "#{ env.DIR.STATIC }"
 
+    routes.auth this.app
     routes.web this.app
     routes.api this.app
 
