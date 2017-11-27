@@ -15,40 +15,83 @@
 db = require '../db.coffee'
 
 module.exports =
-  get: (username, callback) ->
-    user = {}
+  all: (callback) ->
+    users = []
+
     # Connect to db and open read stream
     rs = db.createReadStream
-      gte: "user:#{username}"
-      lte: "user:#{username}"
+      gte: 'users:!'
+      lte: 'users:~'
+
     # Handle events
     rs.on 'data', (data) ->
+      [ _, id ] = data.key.split ':'
       [ fullname, password, email ] = data.value.split ':'
+      users.push
+        id: id
+        email: email
+        password: password
+        fullname: fullname
+
+    rs.on 'error', callback
+    rs.on 'close', () ->
+      callback null, users
+
+  save: (user, callback) ->
+    db.get 'user_id', (err, data) ->
+      if err
+        data = 0
+
+      id = parseInt(data) + 1
+
+      # Connect to db and open write stream
+      ws = db.createWriteStream()
+      # Handle errors & close
+      ws.on 'error', callback
+      ws.on 'close', callback
+
+      # Get params
+      { email, password, fullname } = user
+
+      ws.write
+        key: "emails:#{email}"
+        value: id
+      # Save user in db
+      data =
+        key: "users:#{id}"
+        value: "#{email}:#{password}:#{fullname}"
+      ws.write data
+
+      # Close stream
+      ws.end()
+
+      # Store last user ID
+      db.put 'user_id', id
+
+  get: (id, callback) ->
+    user = {}
+
+    # Connect to db and open read stream
+    rs = db.createReadStream
+      gte: "users:#{id}"
+      lte: "users:#{id}"
+    # Handle events
+    rs.on 'data', (data) ->
+      [ email, password, fullname ] = data.value.split ':'
       user =
-        "#{username}":
-          fullname: fullname,
-          password: password,
-          email: email
+        id: id
+        email: email
+        password: password
+        fullname: fullname
     rs.on 'error', callback
     rs.on 'close', () ->
       callback null, user
 
-  save: (users, callback) ->
-    # Connect to db and open write stream
-    ws = db.createWriteStream()
-    # Handle errors & close
-    ws.on 'error', callback
-    ws.on 'close', callback
+  getByEmail: (email, callback) ->
+    self = this
 
-    for index, user of users
-      # Get params
-      username = index
-      { fullname, password, email } = user
-      # Save user in db
-      data =
-        key: "user:#{username}"
-        value: "#{fullname}:#{password}:#{email}"
-      ws.write data
+    db.get "emails:#{email}", (err, data) ->
+      return callback null, {} if err
 
-    # Close stream
-    ws.end()
+      id = data
+      self.get id, callback

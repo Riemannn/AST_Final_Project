@@ -15,8 +15,4 @@
 module.exports =
   index: (req, res) ->
     res.render 'index',
-      text: 'Hello World!'
-
-  welcome: (req, res) ->
-    res.render 'index',
-      text: "Hello #{req.params.name}"
+      name: req.session.user.fullname

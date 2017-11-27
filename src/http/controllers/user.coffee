@@ -16,7 +16,7 @@ model = require '../../models/user.coffee'
 
 module.exports =
   index: (req, res) ->
-    model.get req.params.username, (err, data) ->
+    model.all (err, data) ->
       throw next err if err
       res.status(200).json data
 
@@ -24,3 +24,8 @@ module.exports =
     model.save req.body, (err) ->
       throw next err if err
       res.status(200).send 'User(s) saved.'
+
+  get: (req, res) ->
+    model.get req.params.id, (err, data) ->
+      throw next err if err
+      res.status(200).json data

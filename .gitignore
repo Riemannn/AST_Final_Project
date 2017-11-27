@@ -7,6 +7,10 @@ lib/**/*.js
 db/*
 !db/.gitkeep
 
+# SSL not needed files
+ssl/server.csr
+ssl/server.key.org
+
 # Editor configuration
 .editorconfig
 
