@@ -26,14 +26,14 @@ block content
             .row
                 h1.col-12.text-center SkiPerf
             .row
-                .col-md-6.separator
-                    h2 Login
+                .col-lg-6.separator
+                    h2 Log in
                     form#login(action="/login" method="post")
                         input(type="email" name="email" placeholder="Email" class=retry ? 'is-invalid' : '')
                         input(type="password" name="password" placeholder="Password" class=retry ? 'is-invalid' : '')
-                        button.btn.btn-primary(type="submit") Sign in
+                        button.btn.btn-primary(type="submit") Log in
 
-                .col-md-6
+                .col-lg-6
                     h2 Register
                     form#register(action="/register" method="post")
                         .combined
