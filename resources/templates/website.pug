@@ -22,7 +22,7 @@ block styles
 
 block content
     nav.navbar.navbar-dark.bg-dark.navbar-expand-md
-        div.container
+        div.container-fluid
             a.navbar-brand(href="#")
                 h3 SkiPerf
             button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation")
@@ -35,3 +35,18 @@ block content
                         a.nav-link(href="#") Settings
                     li.nav-item
                         a.nav-link(href="#") Logout
+    
+    div.container-fluid
+        div.row
+            div.col-sm-3.col-md-2.sidebar.bg-dark
+                ul.nav.nav-sidebar
+                    li
+                        a(href="#") Reports
+                    li
+                        a(href="#") Reports
+                    
+            div.col-sm-12.col-md-10.offset-md-2.main
+                h1.page-header Dashboard
+                div.row.placeholders
+                
+                h2.sub-header Section title
