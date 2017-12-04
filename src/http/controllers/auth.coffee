@@ -16,7 +16,7 @@ userModel = require '../../models/user.coffee'
 
 module.exports =
   login: (req, res) ->
-    res.render 'login2',
+    res.render 'login',
       retry: req.query.retry || false
 
   authenticate: (req, res) ->

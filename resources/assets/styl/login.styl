@@ -23,82 +23,83 @@ body
     background-repeat no-repeat
     background-position center center
 
-.all
-    background rgba(0,0,0,0.4)
-
-nav.navbar
-    box-shadow 0 2px 5px rgba(0,0,0,0.3);
-
-nav.navbar .navbar-brand
-    margin 0
-    padding 0
-
-    font-family Lobster
-    font-size 1.6rem
-
-.card
-    box-shadow 3px 3px 10px rgba(0,0,0,0.2);
-
-.all
+.blur
     height 100%
+    padding 50px 0
+    background-color rgba(0,0,0,0.5)
 
-.page
-    height 90%
+h1
+    margin-bottom 50px
+    font-family Lobster
+    font-size 8em
+    color white
+    text-shadow 2px 2px 5px rgba(0,0,0,0.4)
 
-.btn.btn-dark
-    width 200px
-    margin-top 10px
+.row:nth-child(2)
+    height 58vh
 
-.card
-    margin-top 10px
-    margin-bottom 10px
+    .col-lg-6.separator
+        border-right 1px solid white
 
-.navbar .row
-    width 100%
+h2
+    margin 10px 0 50px
+    text-align center
+    text-transform uppercase
+    color white
+    letter-spacing 10px
+    text-shadow 2px 2px 5px rgba(0,0,0,0.4)
 
-.d-flex
-    width 100%
-
-@media (max-width 992px)
-    h1
-        margin 0
-        color white
-        font-family Lobster
+form
+    input
+        display table
         margin auto
+        padding 10px
+        width 20vw
+        outline none
+        border none
+        border-bottom 1px solid #E9E9E9
+        box-shadow 2px 2px 5px rgba(0,0,0,0.3)
 
-    .form-inline
+        &.is-invalid
+            background-color #ECC
+            border-bottom 1px solid #FA9
+
+    button.btn
+        display table
         margin auto
+        margin-top 20px
+        padding 10px
+        width 20vw
+        box-shadow 2px 2px 5px rgba(0,0,0,0.3)
 
-    .card
-        margin-top 10px
-        margin-bottom 10px
+form#login
+    input
+        &:first-child
+            border-radius 5px 5px 0 0
 
-    .navbar .row
+        &:nth-child(2)
+            border-radius 0 0 5px 5px
+            border-bottom none
+
+form#register
+    .combined
+        display table
         margin auto
+        box-shadow 2px 2px 5px rgba(0,0,0,0.3)
 
-@media (max-width 768px)
-    .form-group
-        margin auto
-        margin-top 10px
+        input
+            display inline-block
+            width 10vw
+            box-shadow none
 
-    .btn-outline-light
-        margin auto
-        margin-top 10px
+            &:first-child
+                border-radius 5px 0 0 0
+                border-right 1px solid #E9E9E9
 
-    .card
-        margin-top 10px
-        margin-bottom 10px
+            &:nth-child(2)
+                border-radius 0 5px 0 0
 
-    .navbar .row
-        margin auto
-
-    .page
-        height 78%
-
-@media (max-width 531px)
-    .btn-outline-light
-        padding-left 90px
-        padding-right 90px
-
-    .page
-        height 73%
+    input
+        &:nth-child(3)
+            border-radius 0 0 5px 5px
+            border-bottom none

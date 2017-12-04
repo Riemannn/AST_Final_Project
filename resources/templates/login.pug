@@ -21,36 +21,24 @@ block styles
     link(rel='stylesheet', href='/css/login.css')
 
 block content
-    div.all
-        nav.navbar.navbar-dark.bg-dark
-            div.container
-                div.row.justify-content-between
-                    a.navbar-brand(href="#") SkiPerf
-                    form.form-inline(action="/login" method="post")
-                        div.form-group
-                            input.form-control(type="email" name="email" placeholder="Email" class=retry ? 'is-invalid' : '')
-                        div.form-group.mx-sm-3
-                            input.form-control(type="password" name="password" placeholder="Password" class=retry ? 'is-invalid' : '')
-                        input.btn.btn-outline-light(type="submit" value="Log in")
-                            
-        div.container.page
-            div.row.h-100
-                div.col-12.my-auto
-                    div.card.bg-light.card-block.mx-auto(style="max-width: 20rem;")
-                        div.card-header.text-center Sign in !
-                        div.card-body
-                            form
-                                div.form-group
-                                    label.col-form-label(for="firstname") Firstname
-                                    input.form-control(type="text" name="firstname")
-                                div.form-group
-                                    label.col-form-label(for="lastname") Lastname
-                                    input.form-control(type="text" name="lastname")
-                                div.form-group
-                                    label.col-form-label(for="email") Email address
-                                    input.form-control(type="email" name="email")
-                                div.form-group
-                                    label.col-form-label(for="pwd") Password
-                                    input.form-control(type="password" name="pwd")
-                                div.text-center
-                                    button#submit.btn.btn-dark Sign in
+    .blur
+        .container
+            .row
+                h1.col-12.text-center SkiPerf
+            .row
+                .col-lg-6.separator
+                    h2 Log in
+                    form#login(action="/login" method="post")
+                        input(type="email" name="email" placeholder="Email" class=retry ? 'is-invalid' : '')
+                        input(type="password" name="password" placeholder="Password" class=retry ? 'is-invalid' : '')
+                        button.btn.btn-primary(type="submit") Log in
+
+                .col-lg-6
+                    h2 Register
+                    form#register(action="/register" method="post")
+                        .combined
+                            input(type="text" name="firstname" placeholder="First name(s)")
+                            input(type="text" name="lastname" placeholder="Last name(s)")
+                        input(type="email" name="email" placeholder="Email address")
+                        input(type="password" name="password" placeholder="Password")
+                        button.btn.btn-primary(type="submit") Sign up
