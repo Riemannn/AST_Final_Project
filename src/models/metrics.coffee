@@ -25,12 +25,11 @@ module.exports =
 
     # Handle events
     rs.on 'data', (data) ->
-      [ _, _, id ] = data.key.split ':'
-      [ title, content ] = data.value.split ':'
+      [ _, _, timestamp ] = data.key.split ':'
+      value = data.value
       metrics.push
-        id: id
-        title: title
-        content: content
+        timestamp: timestamp
+        value: value
 
     rs.on 'error', callback
     rs.on 'close', () ->
@@ -44,12 +43,12 @@ module.exports =
     ws.on 'close', callback
 
     # Get params
-    { title, content } = metric
+    { value } = metric
 
     # Save metric in db
     data =
       key: "metrics:#{userID}:#{Date.now()}"
-      value: "#{title}:#{content}"
+      value: value
     ws.write data
 
     # Close stream

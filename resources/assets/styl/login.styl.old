@@ -23,97 +23,41 @@ body
     background-repeat no-repeat
     background-position center center
 
-.blur
-    height 100%
-    padding 50px 0
-    background-color rgba(0,0,0,0.5)
+.all
+    background rgba(0,0,0,0.4)
 
-h1
-    margin-bottom 50px
+nav.navbar
+    box-shadow 0 2px 5px rgba(0,0,0,0.3);
+
+nav.navbar .navbar-brand
+    margin 0
+    padding 0
+
     font-family Lobster
-    font-size 8em
-    color white
-    text-shadow 2px 2px 5px rgba(0,0,0,0.4)
+    font-size 1.6rem
 
-.row:nth-child(2)
-    height 58vh
+.card
+    box-shadow 3px 3px 10px rgba(0,0,0,0.2);
 
-    .col-md-6.separator
-        border-right 1px solid white
+.all
+    height 100%
 
-h2
-    display table
-    margin 10px auto 50px
-    text-transform uppercase
-    color white
-    letter-spacing 10px
-    text-shadow 2px 2px 5px rgba(0,0,0,0.4)
+.page
+    height 90%
 
-form#login
-    input
-        display table
-        margin auto
-        padding 10px
-        width 20vw
-        outline none
-        border none
-        border-bottom 1px solid #E9E9E9
+.btn.btn-dark
+    width 200px
+    margin-top 10px
 
-        &:first-child
-            border-radius 5px 5px 0 0
+.card
+    margin-top 10px
+    margin-bottom 10px
 
-        &:nth-child(2)
-            border-radius 0 0 5px 5px
-            border-bottom none
+.navbar .row
+    width 100%
 
-    button
-        display table
-        margin auto
-        margin-top 20px
-        padding 10px
-        width 20vw
-
-form#register
-    .combined
-        display table
-        margin auto
-
-        input
-            display inline-block
-            padding 10px
-            width 10vw
-            outline none
-            border none
-            border-bottom 1px solid #E9E9E9
-
-            &:first-child
-                border-radius 5px 0 0 0
-                border-right 1px solid #E9E9E9
-
-            &:nth-child(2)
-                border-radius 0 5px 0 0
-
-    input
-        display table
-        margin auto
-        padding 10px
-        width 20vw
-        outline none
-        border none
-        border-bottom 1px solid #E9E9E9
-
-        &:nth-child(3)
-            border-radius 0 0 5px 5px
-            border-bottom none
-
-    button
-        display table
-        margin auto
-        margin-top 20px
-        padding 10px
-        width 20vw
-
-
+.d-flex
+    width 100%
 
 @media (max-width 992px)
     h1
