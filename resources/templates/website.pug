@@ -92,6 +92,14 @@ block scripts
                 .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             
+            make_x_gridlines=() ->
+                return d3.axisBottom(x)
+                    .ticks(5)
+                    
+            make_y_gridlines=() ->
+                return d3.axisLeft(y)
+                    .ticks(5)
+            
             draw = (data) ->
                 for d in data
                     d.timestamp = +d.timestamp
@@ -106,17 +114,28 @@ block scripts
                     d.value
                 ]
                 
+                svg.append("g")
+                    .attr("class", "grid")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call make_x_gridlines().tickSize(-height).tickFormat("")
+                    
+                svg.append("g")
+                    .attr("class", "grid")
+                    .call make_y_gridlines().tickSize(-width).tickFormat("")
+                                
                 svg.append('path')
                     .data([ data ])
                     .attr('class', 'line')
-                    .attr('d', valueline);
+                    .attr('d', valueline)
                 
                 svg.append('g')
                     .attr('transform', 'translate(0,' + height + ')')
-                    .call(d3.axisBottom(x));
+                    .call(d3.axisBottom(x))
+                    .attr("class", "axisBottom")
                 
                 svg.append('g')
-                    .call(d3.axisLeft(y));              
+                    .call(d3.axisLeft(y))
+                    .attr("class", "axisLeft")
             
             d3.json '/api/users/1/metrics', (error, data) -> 
                 throw error if error
