@@ -27,27 +27,22 @@ block content
     nav.navbar.navbar-dark.bg-dark.navbar-expand-md
         div.container
             a.navbar-brand(href="#") SkiPerf
-            button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation")
-                span.navbar-toggler-icon
-            div.collapse.navbar-collapse(id="navbarTogglerDemo03")
-                ul.navbar-nav.mr-auto.mt-2.mt-lg-0
-                    li.nav-item
-                        a.nav-link(href="#") Home
-                    li.nav-item
-                        a.nav-link(href="#") Settings
-                    li.nav-item
-                        a.nav-link(href="/logout") Logout
     
     div.container-fluid
         div.row
-            div.col-sm-3.col-md-2.sidebar.bg-dark
+            div.sidebar.bg-dark
                 ul.nav.nav-sidebar
                     li
-                        a(href="#") Reports
+                        a.text-center(href="#")
+                            i.fa.fa-area-chart(aria-hidden="true")
                     li
-                        a(href="#") Reports
+                        a.text-center(href="#")
+                            i.fa.fa-sign-out(aria-hidden="true")
+                    li
+                        a.text-center(href="#")
+                            i.fa.fa-cogs(aria-hidden="true")
                     
-            div.col-sm-12.col-md-10.offset-md-2.main
+            div.main
                 h2.sub-header Dashboard
                 form.form-inline(action="/api/metrics" method="post")
                     div.form-group.speed

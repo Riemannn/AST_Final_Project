@@ -28,10 +28,6 @@ nav.navbar .navbar-brand
     font-family Lobster
     font-size 1.6rem
 
-nav.navbar ul
-    padding-left 30px
-    padding-right 30px
-
 .sub-header
   padding-bottom 10px
   border-bottom 1px solid #eee
@@ -54,6 +50,7 @@ nav.navbar ul
     position fixed
     bottom 0
     top 0
+    width 80px
     display block
     padding 20px
     padding-top 64px
@@ -76,12 +73,10 @@ nav.navbar ul
 .nav-sidebar li
     position relative
     display block
-    padding 10px 15px
+    padding 20px 15px
     width 100%
 
 .nav-sidebar a
-  padding-right 20px
-  padding-left 20px
   display block
   width 100%
   color white
@@ -90,9 +85,12 @@ nav.navbar ul
 .nav-sidebar li:hover
     background-color #555
 
+i.fa
+    font-size 2em
 
 .main
     padding 20px
+    margin-left 80px
 
 @media (min-width: 768px)
   .main
@@ -104,9 +102,10 @@ nav.navbar ul
     .main
         top 59px
 
-@media (max-width: 768px)
+@media (max-width: 767px)
   .main
     top 59px
+    margin-left 0
 
 .main .page-header
   margin-top 0
