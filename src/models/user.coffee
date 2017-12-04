@@ -26,7 +26,7 @@ module.exports =
     # Handle events
     rs.on 'data', (data) ->
       [ _, id ] = data.key.split ':'
-      [ fullname, password, email ] = data.value.split ':'
+      [ email, password, fullname ] = data.value.split ':'
       users.push
         id: id
         email: email

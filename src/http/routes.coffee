@@ -35,6 +35,9 @@ module.exports =
     # Logout routes
     this.getAuth app, '/logout', ctrls.auth.logout
 
+    # Register routes
+    this.postAuth app, '/register', ctrls.auth.register
+
 
   # Define all web routes
   web: (app) ->

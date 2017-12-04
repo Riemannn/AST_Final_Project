@@ -31,6 +31,15 @@ module.exports =
         req.session.user = data
         res.redirect '/'
 
+  register: (req, res) ->
+    user =
+      email: req.body.email
+      password: req.body.password
+      fullname: req.body.firstname + " " + req.body.lastname
+    userModel.save user, (err) ->
+      throw next err if err
+      res.redirect "/"
+
   logout: (req, res) ->
     delete req.session.loggedIn
     delete req.session.user
