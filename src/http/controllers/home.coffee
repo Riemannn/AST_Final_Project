@@ -12,21 +12,7 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-userModel = require '../../models/user.coffee'
-
 module.exports =
   index: (req, res) ->
-    res.render 'index'
-
-  login: (req, res) ->
-    res.render 'login'
-
-  connect: (req, res) ->
-    { email, password } = req.body
-    userModel.get email, (err, data) ->
-      throw next err if err
-
-      if Object.keys(data).length == 0 || !(password == data[email].password)
-        res.redirect "/login"
-      else
-        res.redirect "/"
+    res.render 'index',
+      name: req.session.user.fullname

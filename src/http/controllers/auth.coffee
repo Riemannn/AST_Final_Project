@@ -12,20 +12,26 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-model = require '../../models/user.coffee'
+userModel = require '../../models/user.coffee'
 
 module.exports =
-  index: (req, res) ->
-    model.all (err, data) ->
-      throw next err if err
-      res.status(200).json data
+  login: (req, res) ->
+    res.render 'login',
+      retry: req.query.retry || false
 
-  store: (req, res) ->
-    model.save req.body, (err) ->
+  authenticate: (req, res) ->
+    { email, password } = req.body
+    userModel.getByEmail email, (err, data) ->
       throw next err if err
-      res.status(200).send 'User(s) saved.'
 
-  get: (req, res) ->
-    model.get req.params.id, (err, data) ->
-      throw next err if err
-      res.status(200).json data
+      if Object.keys(data).length == 0 || (password != data.password)
+        res.redirect '/login?retry=true'
+      else
+        req.session.loggedIn = true
+        req.session.user = data
+        res.redirect '/'
+
+  logout: (req, res) ->
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect '/login'

@@ -16,57 +16,82 @@ db = require '../db.coffee'
 
 module.exports =
   all: (callback) ->
-    users = {}
+    users = []
+
     # Connect to db and open read stream
     rs = db.createReadStream
-      gte: 'user:!'
-      lte: 'user:~'
+      gte: 'users:!'
+      lte: 'users:~'
+
     # Handle events
     rs.on 'data', (data) ->
-      [ _, username ] = data.key.split ':'
+      [ _, id ] = data.key.split ':'
       [ fullname, password, email ] = data.value.split ':'
-      users["#{username}"] =
-        fullname: fullname,
-        password: password,
+      users.push
+        id: id
         email: email
+        password: password
+        fullname: fullname
+
     rs.on 'error', callback
     rs.on 'close', () ->
       callback null, users
 
-  save: (users, callback) ->
-    # Connect to db and open write stream
-    ws = db.createWriteStream()
-    # Handle errors & close
-    ws.on 'error', callback
-    ws.on 'close', callback
+  save: (user, callback) ->
+    db.get 'user_id', (err, data) ->
+      if err
+        data = 0
 
-    for index, user of users
+      id = parseInt(data) + 1
+
+      # Connect to db and open write stream
+      ws = db.createWriteStream()
+      # Handle errors & close
+      ws.on 'error', callback
+      ws.on 'close', callback
+
       # Get params
-      username = index
-      { fullname, password, email } = user
+      { email, password, fullname } = user
+
+      ws.write
+        key: "emails:#{email}"
+        value: id
       # Save user in db
       data =
-        key: "user:#{username}"
-        value: "#{fullname}:#{password}:#{email}"
+        key: "users:#{id}"
+        value: "#{email}:#{password}:#{fullname}"
       ws.write data
 
-    # Close stream
-    ws.end()
+      # Close stream
+      ws.end()
 
-  get: (username, callback) ->
+      # Store last user ID
+      db.put 'user_id', id
+
+  get: (id, callback) ->
     user = {}
+
     # Connect to db and open read stream
     rs = db.createReadStream
-      gte: "user:#{username}"
-      lte: "user:#{username}"
+      gte: "users:#{id}"
+      lte: "users:#{id}"
     # Handle events
     rs.on 'data', (data) ->
-      [ fullname, password, email ] = data.value.split ':'
+      [ email, password, fullname ] = data.value.split ':'
       user =
-        "#{username}":
-          fullname: fullname,
-          password: password,
-          email: email
+        id: id
+        email: email
+        password: password
+        fullname: fullname
     rs.on 'error', callback
     rs.on 'close', () ->
       callback null, user
+
+  getByEmail: (email, callback) ->
+    self = this
+
+    db.get "emails:#{email}", (err, data) ->
+      return callback null, {} if err
+
+      id = data
+      self.get id, callback

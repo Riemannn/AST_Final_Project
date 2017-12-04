@@ -19,12 +19,14 @@ block title
     
 block styles
     link(rel='stylesheet', href='/css/website.css')
+    
+block js-libraries
+    script(src="https://d3js.org/d3.v4.min.js")
 
 block content
     nav.navbar.navbar-dark.bg-dark.navbar-expand-md
-        div.container-fluid
-            a.navbar-brand(href="#")
-                h3 SkiPerf
+        div.container
+            a.navbar-brand(href="#") SkiPerf
             button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation")
                 span.navbar-toggler-icon
             div.collapse.navbar-collapse(id="navbarTogglerDemo03")
@@ -34,7 +36,7 @@ block content
                     li.nav-item
                         a.nav-link(href="#") Settings
                     li.nav-item
-                        a.nav-link(href="#") Logout
+                        a.nav-link(href="/logout") Logout
     
     div.container-fluid
         div.row

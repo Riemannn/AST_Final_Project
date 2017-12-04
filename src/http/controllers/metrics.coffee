@@ -12,17 +12,15 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+model = require '../../models/metrics.coffee'
+
 module.exports =
-  get: (callback) ->
-    data = [
-      { id: 1, value: 10 },
-      { id: 2, value: 52 },
-      { id: 3, value: 'cdj' }
-    ]
-
-    callback null, data
-
   index: (req, res) ->
-    this.get (err, data) ->
+    model.all req.params.id, (err, data) ->
       throw next err if err
       res.status(200).json data
+
+  store: (req, res) ->
+    model.save req.params.id, req.body, (err) ->
+      throw next err if err
+      res.status(200).send "Metric saved for user #{req.params.id}."

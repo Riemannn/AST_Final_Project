@@ -12,13 +12,28 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+middlewares = require './middlewares'
+
 module.exports =
   # Declare here all controllers
   controllers:
+    auth: require './controllers/auth'
     home: require './controllers/home'
     metrics: require './controllers/metrics'
     user: require './controllers/user'
 
+
+
+  # Define all auth routes
+  auth: (app) ->
+    ctrls = this.controllers
+
+    # Login routes
+    this.getAuth app, '/login', ctrls.auth.login
+    this.postAuth app, '/login', ctrls.auth.authenticate
+
+    # Logout routes
+    this.getAuth app, '/logout', ctrls.auth.logout
 
 
   # Define all web routes
@@ -27,8 +42,6 @@ module.exports =
 
     # Home Controller
     this.get app, '/', ctrls.home.index
-    this.get app, '/login', ctrls.home.login
-    this.post app, '/login', ctrls.home.connect
 
 
 
@@ -37,22 +50,30 @@ module.exports =
     ctrls = this.controllers
 
     # Metrics Controller
-    this.getApi app, '/metrics', ctrls.metrics.index
-    # this.postApi app, '/metrics', ctrls.metrics.store
+    this.getApi app, '/users/:id/metrics', ctrls.metrics.index
+    this.postApi app, '/users/:id/metrics', ctrls.metrics.store
     # User Controller
     this.getApi app, '/users', ctrls.user.index
     this.postApi app, '/users', ctrls.user.store
-    this.getApi app, '/users/:username', ctrls.user.get
+    this.getApi app, '/users/:id', ctrls.user.get
 
 
+
+  # Expose a GET webpage without auth middleware
+  getAuth: (app, url, controllerFunc) ->
+    app.get url, controllerFunc
+
+  # Expose a POST webpage without auth middleware
+  postAuth: (app, url, controllerFunc) ->
+    app.post url, controllerFunc
 
   # Expose a GET webpage
   get: (app, url, controllerFunc) ->
-    app.get url, controllerFunc
+    app.get url, middlewares.auth, controllerFunc
 
   # Expose a POST webpage
   post: (app, url, controllerFunc) ->
-    app.post url, controllerFunc
+    app.post url, middlewares.auth, controllerFunc
 
   # Expose a GET API returning a JSON response
   getApi: (app, url, controllerFunc) ->

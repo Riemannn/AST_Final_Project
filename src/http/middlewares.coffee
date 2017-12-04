@@ -12,20 +12,19 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-model = require '../../models/user.coffee'
+env = require '../../.env.coffee'
 
 module.exports =
-  index: (req, res) ->
-    model.all (err, data) ->
-      throw next err if err
-      res.status(200).json data
+  # If no user logged in, redirect to login page
+  auth: (req, res, next) ->
+    unless req.session.loggedIn
+      res.redirect '/login'
+    else
+      next()
 
-  store: (req, res) ->
-    model.save req.body, (err) ->
-      throw next err if err
-      res.status(200).send 'User(s) saved.'
-
-  get: (req, res) ->
-    model.get req.params.id, (err, data) ->
-      throw next err if err
-      res.status(200).json data
+  # Redirect HTTP requests to HTTPS
+  https: (req, res, next) ->
+    unless req.secure
+      res.redirect 'https://' + req.headers.host.replace(env.SERVER.HTTP_PORT, env.SERVER.HTTPS_PORT) + req.url
+    else
+      next()
