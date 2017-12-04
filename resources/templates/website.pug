@@ -58,56 +58,51 @@ block content
 block scripts
     script
         :coffee-script
-            $.get "/metrics.json", (data, status) ->
+            margin =
+                top: 20
+                right: 20
+                bottom: 30
+                left: 50
+            width = 960 - margin.left - margin.right
+            height = 500 - margin.top - margin.bottom
+            
+            x = d3.scaleTime().range([ 0, width ])
+            y = d3.scaleLinear().range([ height, 0 ])
+            
+            valueline = d3.line()
+                .x((d) -> return x(d.timestamp))
+                .y((d) -> return y(d.value))
+            
+            svg = d3.select('svg')
+                .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            
+            draw = (data) ->
+                for d in data
+                    d.timestamp = +d.timestamp
+                    d.value = +d.value
                 
-                margin = {top: 20, right: 20, bottom: 30, left: 50}
-                width = 960 - margin.left - margin.right
-                height = 500 - margin.top - margin.bottom
-
-                parseTime = d3.timeParse("%d-%b-%y");
-
-                x = d3.scaleTime().range([0, width])
-                y = d3.scaleLinear().range([height, 0])
-
-                valueline = d3.line()
-                    .x((d) ->  return x(d.timestamp) )
-                    .y((d) ->  return y(d.value) )
-                  
+                data.sort (a, b) ->
+                    a.timestamp - b.timestamp
                 
-                svg = d3.select("svg").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
-                draw= (data) ->
-                  for d in data
-                      (d) -> 
-                          d.timestamp = parseTime(d.timestamp)
-                          d.value = +d.value
-                  
-                  data.sort((a, b) ->
-                    return a["timestamp"]-b["timestamp"];
-                  )
-                 
-                  x.domain(d3.extent(data, (d) ->
-                    return d.timestamp; ));
-                  y.domain([0, d3.max(data, (d) ->
-                    return d.value; )]);
-                  
-                  svg.append("path")
-                      .data([data])
-                      .attr("class", "line")
-                      .attr("d", valueline);
-                      
-                  svg.append("g")
-                      .attr("transform", "translate(0," + height + ")")
-                      .call(d3.axisBottom(x));
-
-                  svg.append("g")
-                      .call(d3.axisLeft(y));              
-                  
-                d3.json("metrics.json", (error, data) -> 
-                  throw error if error
-                  draw(data)
-                )
+                x.domain d3.extent data, (d) ->
+                    d.timestamp
+                y.domain [0, d3.max data, (d) ->
+                    d.value
+                ]
+                
+                svg.append('path')
+                    .data([ data ])
+                    .attr('class', 'line')
+                    .attr('d', valueline);
+                
+                svg.append('g')
+                    .attr('transform', 'translate(0,' + height + ')')
+                    .call(d3.axisBottom(x));
+                
+                svg.append('g')
+                    .call(d3.axisLeft(y));              
+            
+            d3.json '/api/users/1/metrics', (error, data) -> 
+                throw error if error
+                draw(data)
