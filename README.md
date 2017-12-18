@@ -37,6 +37,7 @@ To install it locally, you will need :
 Now, open your terminal, `cd` to a directory where you want to clone our project, and do the following :
 ```shell
 >   git clone git@github.com:Riemannn/AST_Final_Project.git
+>   cd AST_Final_Project
 >   npm install
 >   cp .env.example.coffee .env.coffee # Mandatory for the project to work
 >   cp .editorconfig.example .editorconfig # Optional
@@ -73,7 +74,7 @@ For our project, we used the npm package **coffeelint** to lint all our CoffeeSc
 For testing, we used two node modules : **mocha** and **should**.  
 We only tested our models methods, testing the rest was not really useful.  
 Tests can be found under the `tests` folder. To run the tests locally, you can run the following command :
-```
+```shell
 >   npm test
 ```
 We also implemented Continuous Integration, with Travis CI.  
