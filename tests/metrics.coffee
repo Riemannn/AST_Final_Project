@@ -30,7 +30,7 @@ describe 'Metrics', () ->
 
   it 'Save new metrics for user', (done) ->
     metric =
-      value: 'Test new metric'
+      value: 50
 
     model.save 1, metric, (err, data) ->
       should.not.exist err

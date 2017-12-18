@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Save 3 users in database
+
+curl \
+  -d '{"email":"first@user.com", "password":"first", "fullname": "First User"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users \
+  --insecure
+curl \
+  -d '{"email":"second@user.com", "password":"second", "fullname": "Second User"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users \
+  --insecure
+curl \
+  -d '{"email":"third@user.com", "password":"third", "fullname": "Third User"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users \
+  --insecure
+
+# Add 3 metrics to each of these users
+
+curl \
+  -d '{"value":"50"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/1/metrics \
+  --insecure
+curl \
+  -d '{"value":"72"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/2/metrics \
+  --insecure
+curl \
+  -d '{"value":"89"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/3/metrics \
+  --insecure
+
+sleep 2
+
+curl \
+  -d '{"value":"60"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/1/metrics \
+  --insecure
+curl \
+  -d '{"value":"58"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/2/metrics \
+  --insecure
+curl \
+  -d '{"value":"91"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/3/metrics \
+  --insecure
+
+sleep 2
+
+curl \
+  -d '{"value":"80"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/1/metrics \
+  --insecure
+curl \
+  -d '{"value":"74"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/2/metrics \
+  --insecure
+curl \
+  -d '{"value":"68"}' \
+  -H "Content-Type: application/json" \
+  -X POST https://localhost:8443/api/users/3/metrics \
+  --insecure

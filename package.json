@@ -5,6 +5,7 @@
   "main": "src/main.coffee",
   "scripts": {
     "compile": "./bin/compile",
+    "db-seed": "./bin/db-seed",
     "lint": "./bin/lint",
     "start": "./bin/start",
     "test": "./bin/test ./tests/*"
