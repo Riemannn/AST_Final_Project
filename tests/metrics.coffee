@@ -11,3 +11,27 @@
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+should = require 'should'
+
+userModel = require '../src/models/user'
+model = require '../src/models/metrics'
+
+describe 'Metrics', () ->
+  it 'Save new user', (done) ->
+    user =
+      email: 'alexandre.pielucha@edu.ece.fr'
+      password: 'toto'
+      fullname: 'Alexandre Pielucha'
+
+    userModel.save user, (err) ->
+      should.not.exist err
+      done()
+
+  it 'Save new metrics for user', (done) ->
+    metric =
+      value: 50
+
+    model.save 1, metric, (err, data) ->
+      should.not.exist err
+      done()

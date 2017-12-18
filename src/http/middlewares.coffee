@@ -25,6 +25,10 @@ module.exports =
   # Redirect HTTP requests to HTTPS
   https: (req, res, next) ->
     unless req.secure
-      res.redirect 'https://' + req.headers.host.replace(env.SERVER.HTTP_PORT, env.SERVER.HTTPS_PORT) + req.url
+      host = req.headers.host
+      host = host.replace env.SERVER.HTTP_PORT, env.SERVER.HTTPS_PORT
+      url = req.url
+
+      res.redirect 'https://' + host + url
     else
       next()

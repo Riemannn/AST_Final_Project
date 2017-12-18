@@ -15,4 +15,6 @@
 module.exports =
   index: (req, res) ->
     res.render 'index',
-      name: req.session.user.fullname
+      user:
+        id: req.session.user.id
+        fullname: req.session.user.fullname

@@ -1,0 +1,104 @@
+// Copyright (C) 2017 Alexandre Pielucha & Marie Perin
+//
+// Permission to use, copy, modify, and/or distribute this software for any
+// purpose with or without fee is hereby granted, provided that the above
+// copyright notice and this permission notice appear in all copies.
+//
+// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+// WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+// ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+// WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+// OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+// CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+@font-face
+   font-family Lobster
+   font-style normal
+   src url('../fonts/LobsterTwo-Regular.ttf')
+
+body
+    background-image url('../img/fond.jpg')
+    background-size cover
+    background-repeat no-repeat
+    background-position center center
+
+.all
+    background rgba(0,0,0,0.4)
+
+nav.navbar
+    box-shadow 0 2px 5px rgba(0,0,0,0.3);
+
+nav.navbar .navbar-brand
+    margin 0
+    padding 0
+
+    font-family Lobster
+    font-size 1.6rem
+
+.card
+    box-shadow 3px 3px 10px rgba(0,0,0,0.2);
+
+.all
+    height 100%
+
+.page
+    height 90%
+
+.btn.btn-dark
+    width 200px
+    margin-top 10px
+
+.card
+    margin-top 10px
+    margin-bottom 10px
+
+.navbar .row
+    width 100%
+
+.d-flex
+    width 100%
+
+@media (max-width 992px)
+    h1
+        margin 0
+        color white
+        font-family Lobster
+        margin auto
+
+    .form-inline
+        margin auto
+
+    .card
+        margin-top 10px
+        margin-bottom 10px
+
+    .navbar .row
+        margin auto
+
+@media (max-width 768px)
+    .form-group
+        margin auto
+        margin-top 10px
+
+    .btn-outline-light
+        margin auto
+        margin-top 10px
+
+    .card
+        margin-top 10px
+        margin-bottom 10px
+
+    .navbar .row
+        margin auto
+
+    .page
+        height 78%
+
+@media (max-width 531px)
+    .btn-outline-light
+        padding-left 90px
+        padding-right 90px
+
+    .page
+        height 73%
