@@ -14,11 +14,12 @@
 
 should = require 'should'
 
-model = require '../src/models/user'
+userModel = require '../src/models/user'
+metricsModel = require '../src/models/metrics'
 
 describe 'User', () ->
   it 'Get user by ID when none created', (done) ->
-    model.get 1, (err, data) ->
+    userModel.get 1, (err, data) ->
       should.not.exist err
 
       should.not.exist data.id
@@ -27,8 +28,9 @@ describe 'User', () ->
       should.not.exist data.fullname
 
       done()
+
   it 'Get user by email when none created', (done) ->
-    model.getByEmail 'alexandre.pielucha@edu.ece.fr', (err, data) ->
+    userModel.getByEmail 'alexandre.pielucha@edu.ece.fr', (err, data) ->
       should.not.exist err
 
       should.not.exist data.id
@@ -44,24 +46,39 @@ describe 'User', () ->
       password: 'toto'
       fullname: 'Alexandre Pielucha'
 
-    model.save user, (err) ->
+    userModel.save user, (err) ->
       should.not.exist err
       done()
 
   it 'Get user by ID when created', (done) ->
-    model.get 1, (err, data) ->
+    userModel.get 1, (err, data) ->
       should.not.exist err
+
       data.should.have.property('id', '1')
       data.should.have.property('email', 'alexandre.pielucha@edu.ece.fr')
       data.should.have.property('password', 'toto')
       data.should.have.property('fullname', 'Alexandre Pielucha')
+
       done()
 
   it 'Get user by email when created', (done) ->
-    model.getByEmail 'alexandre.pielucha@edu.ece.fr' , (err, data) ->
+    userModel.getByEmail 'alexandre.pielucha@edu.ece.fr' , (err, data) ->
       should.not.exist err
+
       data.should.have.property('id', '1')
       data.should.have.property('email', 'alexandre.pielucha@edu.ece.fr')
       data.should.have.property('password', 'toto')
       data.should.have.property('fullname', 'Alexandre Pielucha')
+
+      done()
+
+
+
+describe 'Metrics', () ->
+  it 'Save new metrics for created user', (done) ->
+    metric =
+      value: 50
+
+    metricsModel.save 1, metric, (err, data) ->
+      should.not.exist err
       done()
