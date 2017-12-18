@@ -53,8 +53,8 @@ block content
                 input(type='number' name='value' placeholder="Today's top speed")
                 button.btn-primary Submit
             
-            div.row
-                svg(width="1000", height="300")
+            .row
+                svg.chart
                 
 block scripts
     script
@@ -80,23 +80,34 @@ block scripts
             margin =
                 top: 20
                 right: 20
-                bottom: 30
-                left: 50
-            width = 1000 - margin.left - margin.right
-            height = 300 - margin.top - margin.bottom
-            
-            x = d3.scaleTime().range([ 0, width ])
-            y = d3.scaleLinear().range([ height, 0 ])
-            
-            valueline = d3.line()
-                .x((d) -> return x(d.timestamp))
-                .y((d) -> return y(d.value))
-            
-            svg = d3.select('svg')
-                .append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                bottom: 50
+                left: 70
             
             draw = (data) ->
+                this.width = parseInt(d3.select(".chart").style("width")) - margin.left - margin.right
+                height = 400 - margin.top - margin.bottom
+                d3.select('.chart').select("svg").remove()
+                svg = d3.select('.chart').append('svg')
+                    .attr("width", this.width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                
+                x = d3.scaleTime().range([ 0, this.width ])
+                y = d3.scaleLinear().range([ height, 0 ])
+                
+                make_x_gridlines=() ->
+                    return d3.axisBottom(x)
+                        .ticks(5)
+                        
+                make_y_gridlines=() ->
+                    return d3.axisLeft(y)
+                        .ticks(5)
+                    
+                valueline = d3.line()
+                    .x((d) -> return x(d.timestamp))
+                    .y((d) -> return y(d.value))
+            
                 for d in data
                     d.timestamp = +d.timestamp
                     d.value = +d.value
@@ -110,10 +121,38 @@ block scripts
                     d.value
                 ]
                 
+                svg.append("g")
+                    .attr("class", "grid")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call make_x_gridlines().tickSize(-height).tickFormat("")
+                    
+                svg.append("g")
+                    .attr("class", "grid")
+                    .call make_y_gridlines().tickSize(-this.width).tickFormat("")
+                                
                 svg.append('path')
-                    .data([ data ])
                     .attr('class', 'line')
-                    .attr('d', valueline);
+                    .attr('d', valueline(data))
+                    
+                svg.selectAll('dot')
+                    .data(data)
+                  .enter().append('circle')
+                    .attr("r", 3.5)
+                    .attr("cx", (d) -> return x(d.timestamp))
+                    .attr("cy", (d) -> return y(d.value))
+                    
+                svg.append("text")             
+                    .attr("transform", "translate(" + (this.width/2) + " ," + (height + margin.top + 30) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Date")
+                    
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left)
+                    .attr("x",0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Maximum speed");
                 
                 svg.append('g')
                     .attr('transform', 'translate(0,' + height + ')')
@@ -124,4 +163,13 @@ block scripts
             
             d3.json '/api/users/1/metrics', (error, data) -> 
                 throw error if error
-                draw(data)
+                this.data = data
+                draw(this.data)
+                
+            resized = ->
+                this.width = parseInt(d3.select(".chart").style("width")) - margin.left - margin.right
+                draw(this.data)
+
+            window.addEventListener("resize", resized)
+            
+            console.log("taille", this.width);
