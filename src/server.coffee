@@ -34,9 +34,9 @@ module.exports =
     this.app = express()
 
     # Set server's host & port
-    this.app.set 'host', host || env.SERVER.HOST
-    this.app.set 'http_port', http_port || env.SERVER.HTTP_PORT || 8080
-    this.app.set 'https_port', https_port || env.SERVER.HTTPS_PORT || 8443
+    this.app.set 'host', host or env.SERVER.HOST
+    this.app.set 'http_port', http_port or env.SERVER.HTTP_PORT or 8080
+    this.app.set 'https_port', https_port or env.SERVER.HTTPS_PORT or 8443
 
     # Set views / templates settings
     this.app.set 'view engine', 'pug'
@@ -74,14 +74,31 @@ module.exports =
       key: fs.readFileSync env.DIR.SSL + 'server.key'
       cert: fs.readFileSync env.DIR.SSL + 'server.crt'
 
-    if !this.app.get('host')? || this.app.get('host')==''
-      https.createServer(credentials, this.app).listen this.app.get('https_port'), callback("Server listening HTTPS on 127.0.0.1:#{this.app.get 'https_port'}")
-      http.createServer(this.app).listen this.app.get('http_port'), callback("Server listening HTTP on 127.0.0.1:#{this.app.get 'http_port'}")
-    else
-      https.createServer(credentials, this.app).listen this.app.get('https_port'), this.app.get('host'), 511, callback("Server listening HTTPS on #{this.app.get 'host'}:#{this.app.get 'https_port'}")
-      http.createServer(this.app).listen this.app.get('http_port'), this.app.get('host'), 511, callback("Server listening HTTP on #{this.app.get 'host'}:#{this.app.get 'http_port'}")
+    if not this.app.get('host')? or this.app.get('host') is ''
+      https_address = "127.0.0.1:#{this.app.get 'https_port'}"
+      http_address = "127.0.0.1:#{this.app.get 'http_port'}"
 
-    # if !this.app.get('host')? || this.app.get('host')==''
-    #   this.app.listen this.app.get('port'), callback("Server listening on 127.0.0.1:#{this.app.get 'port'}")
-    # else
-    #   this.app.listen this.app.get('port'), this.app.get('host'), 511, callback("Server listening on #{this.app.get 'host'}:#{this.app.get 'port'}")
+      https.createServer(credentials, this.app).listen(
+        this.app.get('https_port'),
+        callback("Server listening HTTPS on #{https_address}")
+      )
+      http.createServer(this.app).listen(
+        this.app.get('http_port'),
+        callback("Server listening HTTP on #{http_address}")
+      )
+    else
+      https_address = "#{this.app.get 'host'}:#{this.app.get 'https_port'}"
+      http_address = "#{this.app.get 'host'}:#{this.app.get 'http_port'}"
+
+      https.createServer(credentials, this.app).listen(
+        this.app.get('https_port'),
+        this.app.get('host'),
+        511,
+        callback("Server listening HTTPS on #{https_address}")
+      )
+      http.createServer(this.app).listen(
+        this.app.get('http_port'),
+        this.app.get('host'),
+        511,
+        callback("Server listening HTTP on #{http_address}")
+      )

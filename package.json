@@ -4,9 +4,10 @@
   "description": "ast final project",
   "main": "src/main.coffee",
   "scripts": {
+    "compile": "./bin/compile",
+    "lint": "./bin/lint",
     "start": "./bin/start",
-    "test": "./bin/test ./tests/*",
-    "compile": "./bin/compile"
+    "test": "./bin/test ./tests/*"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "stylus": "^0.54.5"
   },
   "devDependencies": {
+    "coffeelint": "^2.0.7",
     "mocha": "^4.0.1",
     "should": "^13.1.3"
   }
