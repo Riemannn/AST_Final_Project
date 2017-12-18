@@ -9,3 +9,4 @@ branches:
 
 before_script:
   - sudo chmod -R 755 ./bin
+  - sudo cp .env.example.coffee .env.coffee
