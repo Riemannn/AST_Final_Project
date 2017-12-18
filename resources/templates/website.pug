@@ -22,6 +22,9 @@ block styles
     
 block js-libraries
     script(src='https://d3js.org/d3.v4.min.js')
+    script(src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+        integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous")
 
 block content
     nav.navbar.navbar-dark.bg-dark.navbar-expand-md
@@ -58,18 +61,19 @@ block scripts
         :coffee-script
             $('.add-metrics>button').click () ->
                 userID = $('#userID').text()
-                val = $(this).parent().find('input').val()
+                input = $(this).parent().find('input')
+                val = input.val()
                 
                 if (!val? || val=='')
-                    alert('Please enter a value...')
+                    alert('You must enter a value !')
                 else
-                    $(this).addClass 'disabled'
-                    
                     $.post '/api/users/' + userID + '/metrics',
                         value: val
-                    , () ->
-                        $(this).removeClass 'disabled'
-                        
+                    
+                    input.css('background-color', '#007bff')
+                    input.animate({
+                        backgroundColor: '#EEE'
+                    }, 800)
 
     script
         :coffee-script
@@ -92,14 +96,6 @@ block scripts
                 .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             
-            make_x_gridlines=() ->
-                return d3.axisBottom(x)
-                    .ticks(5)
-                    
-            make_y_gridlines=() ->
-                return d3.axisLeft(y)
-                    .ticks(5)
-            
             draw = (data) ->
                 for d in data
                     d.timestamp = +d.timestamp
@@ -114,28 +110,17 @@ block scripts
                     d.value
                 ]
                 
-                svg.append("g")
-                    .attr("class", "grid")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call make_x_gridlines().tickSize(-height).tickFormat("")
-                    
-                svg.append("g")
-                    .attr("class", "grid")
-                    .call make_y_gridlines().tickSize(-width).tickFormat("")
-                                
                 svg.append('path')
                     .data([ data ])
                     .attr('class', 'line')
-                    .attr('d', valueline)
+                    .attr('d', valueline);
                 
                 svg.append('g')
                     .attr('transform', 'translate(0,' + height + ')')
-                    .call(d3.axisBottom(x))
-                    .attr("class", "axisBottom")
+                    .call(d3.axisBottom(x));
                 
                 svg.append('g')
-                    .call(d3.axisLeft(y))
-                    .attr("class", "axisLeft")
+                    .call(d3.axisLeft(y));              
             
             d3.json '/api/users/1/metrics', (error, data) -> 
                 throw error if error
