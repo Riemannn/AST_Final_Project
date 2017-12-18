@@ -77,8 +77,8 @@ Tests can be found under the `tests` folder. To run the tests locally, you can r
 ```shell
 >   npm test
 ```
-We also implemented Continuous Integration, with Travis CI.  
-You can see the pipelines results by [clicking here](https://travis-ci.org/Riemannn/AST_Final_Project).  
+This won't work if you ran the database populate script, or created a user manually. The database must be empty.
+We also implemented Continuous Integration, with Travis CI. You can see the pipelines results by [clicking here](https://travis-ci.org/Riemannn/AST_Final_Project).  
 We put the Travis status badge of our master branch at the top of this README file.
 
 ## Contributors
