@@ -77,6 +77,7 @@ module.exports =
       lte: "users:#{id}"
     # Handle events
     rs.on 'data', (data) ->
+      [ _, id ] = data.key.split ':'
       [ email, password, fullname ] = data.value.split ':'
       user =
         id: id
